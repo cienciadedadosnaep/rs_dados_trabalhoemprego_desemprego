@@ -1,0 +1,6 @@
+"TEMA";"SUBTEMA";"PERGUNTA";"NOME_ARQUIVO_JS"
+"Trabalho e Emprego";"Desemprego";"Qual a quantidade total de pessoas desempregadas em Salvador?";"desemprego_total.csv"
+"Trabalho e Emprego";"Desemprego";"Qual a quantidade de pessoas desempregadas organizado por raça/cor em Salvador?";"desemprego_raçacor.csv"
+"Trabalho e Emprego";"Desemprego";"Qual a quantidade de pessoas desempregadas organizado por sexo biológico em Salvador?";"desemprego_sexo.csv"
+"Trabalho e Emprego";"Desemprego";"Qual a quantidade de pessoas desempregadas organizado por idade em Salvador?";"desemprego_idade.csv"
+"Trabalho e Emprego";"Desemprego";"Qual a taxa de desemprego em Salvador?";"desemprego_taxa.csv"
