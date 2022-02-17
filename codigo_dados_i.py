@@ -11,16 +11,16 @@ grafico2 = grafico2[grafico['D4N']=='18 a 24 anos']
 grafico3 = grafico[grafico['D2N']==selecao]
 grafico3 = grafico3[grafico['D4N']=='25 a 39 anos']
 grafico4 = grafico[grafico['D2N']==selecao]
-grafico4 = grafico3[grafico['D4N']=='40 a 59 anos']
+grafico4 = grafico4[grafico['D4N']=='40 a 59 anos']
 grafico5 = grafico[grafico['D2N']==selecao]
-grafico5 = grafico3[grafico['D4N']=='60 anos ou mais']
+grafico5 = grafico5[grafico['D4N']=='60 anos ou mais']
 #print(grafico3.head(5))
 #print(grafico2.head(5))
 graf1 = grafico1[['D3N','V']].reset_index(drop=True)
 graf2 = grafico2[['V']].reset_index(drop=True)
 graf3 = grafico3[['V']].reset_index(drop=True)
-graf4 = grafico3[['V']].reset_index(drop=True)
-graf5 = grafico3[['V']].reset_index(drop=True)
+graf4 = grafico4[['V']].reset_index(drop=True)
+graf5 = grafico5[['V']].reset_index(drop=True)
 
 graf1 = graf1.drop([33,34,35,36,37,38])
 graf2 = graf2.drop([33,34,35,36,37,38])
