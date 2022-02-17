@@ -44,7 +44,7 @@ library(RJSONIO)
 # #dbClearResult(rs)
 
 library(readr)
-dados <- read_csv("data/recossa_desemprego_rc.csv")
+dados <- read_csv("data/recossa_desemprego_taxa.csv")
 names(dados)
 nomes <- names(dados)
 ##  Perguntas e titulos 
@@ -82,16 +82,16 @@ simbolo_linhas <- c('emptyCircle','emptyTriangle','emptySquare',
 
 objeto_0 <- dados %>%
   #filter(classe %in% c(classes[1])) %>%
-  select(trimestre,Branca,Preta,Parda) %>% #filter(ano<2019) %>%
+  select(trimestre,total) %>% #filter(ano<2019) %>%
   #arrange(trimestre) %>%
   mutate(trimestre = as.character(trimestre)) %>% list()               
 
 exportJson0 <- toJSON(objeto_0)
 
 
-titulo<-T_ST_P_No_TRABALHOEMPREGO$TITULO[2]
+titulo<-T_ST_P_No_TRABALHOEMPREGO$TITULO[5]
 subtexto<-"Fonte: SIDRA IBGE"
-link <- T_ST_P_No_TRABALHOEMPREGO$LINK[2]
+link <- T_ST_P_No_TRABALHOEMPREGO$LINK[5]
 
 data_axis <- paste('["',gsub(' ','","',
                              paste(paste(as.vector(objeto_0[[1]]$trimestre)),
@@ -99,16 +99,9 @@ data_axis <- paste('["',gsub(' ','","',
 
 
 data_serie <- paste('[',gsub(' ',',',
-                             paste(paste(as.vector(objeto_0[[1]]$Branca)),
+                             paste(paste(as.vector(objeto_0[[1]]$total)),
                                    collapse = ' ')),']',sep = '')
 
-data_serie2 <- paste('[',gsub(' ',',',
-                              paste(paste(as.vector(objeto_0[[1]]$Preta)),
-                                    collapse = ' ')),']',sep = '')
-
-data_serie3 <- paste('[',gsub(' ',',',
-                              paste(paste(as.vector(objeto_0[[1]]$Parda)),
-                                    collapse = ' ')),']',sep = '')
 #Colocar o nome da coluna depois de "objeto_0[[1]]$"
 
 texto<-paste('{"title":{"text":"',titulo,
@@ -121,28 +114,20 @@ texto<-paste('{"title":{"text":"',titulo,
              '"dataView":{"readOnly":false},',
              '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
              '"data":',data_axis,'},',
-             '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
+             '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} %"}},',
              '"series":[{"name":"',nomes[2],'","data":',data_serie,',',
-             '"type":"line","color":"',corsec_recossa_azul[1],'","showBackground":true,',
-             '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[1],
-             '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],'","borderWidth":2}},',
-             '{"name":"',nomes[3],'","data":',data_serie2,',',
-             '"type":"line","color":"',corsec_recossa_azul[2],'","showBackground":true,',
-             '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[2],
-             '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],'","borderWidth":2}},',
-             '{"name":"',nomes[4],'","data":',data_serie3,',',
-             '"type":"line","color":"',corsec_recossa_azul[3],'","showBackground":true,',
-             '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[3],
-             '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],'","borderWidth":2}}',
+             '"type":"line","color":"',corsec_recossa_azul[5],'","showBackground":true,',
+             '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[4],
+             '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[5],'","borderWidth":2}},',
              ']}',sep='')
 
 #SAIDA_POVOAMENTO$CODIGO[i] <- texto   
 texto<-noquote(texto)
 
 
-write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[2]),
+write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[5]),
                                '.json',sep =''))
-write(texto,file = paste('data/',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[2],
+write(texto,file = paste('data/',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[5],
                          sep =''))
 
 #}

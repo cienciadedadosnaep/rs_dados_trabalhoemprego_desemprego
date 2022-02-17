@@ -44,7 +44,7 @@ library(RJSONIO)
 # #dbClearResult(rs)
 
 library(readr)
-dados <- read_csv("data/recossa_desemprego_s.csv")
+dados <- read_csv("data/recossa_desemprego_i.csv")
 names(dados)
 nomes <- names(dados)
 ##  Perguntas e titulos 
@@ -75,20 +75,23 @@ corsec_recossa_azul <- c('#a094e1','#dc6f6c','#62acd1','#8bc6d2',
                          '#d62839','#20cfef','#fe4641','#175676')
 # Cor 1 - Roxo; Cor 2, 5, 7 - Vermelho; Cor 3, 4, 6, 8 - Azul
 
+simbolo_linhas <- c('emptyCircle','emptyTriangle','emptySquare',
+                    'emptyDiamond','emptyRoundRect')
+
 #for ( i in 1:length(classes)) {
   
   objeto_0 <- dados %>%
     #filter(classe %in% c(classes[1])) %>%
-    select(trimestre,Homens,Mulheres) %>% #filter(ano<2019) %>%
+    select(trimestre,'14-17','18-24','25-39','40-59','60+') %>% #filter(ano<2019) %>%
     #arrange(trimestre) %>%
     mutate(trimestre = as.character(trimestre)) %>% list()               
   
   exportJson0 <- toJSON(objeto_0)
   
   
-  titulo<-T_ST_P_No_TRABALHOEMPREGO$TITULO[3]
+  titulo<-T_ST_P_No_TRABALHOEMPREGO$TITULO[4]
   subtexto<-"Fonte: SIDRA IBGE"
-  link <- T_ST_P_No_TRABALHOEMPREGO$LINK[3]
+  link <- T_ST_P_No_TRABALHOEMPREGO$LINK[4]
   
   data_axis <- paste('["',gsub(' ','","',
                               paste(paste(as.vector(objeto_0[[1]]$trimestre)),
@@ -96,12 +99,24 @@ corsec_recossa_azul <- c('#a094e1','#dc6f6c','#62acd1','#8bc6d2',
   
   
   data_serie <- paste('[',gsub(' ',',',
-                               paste(paste(as.vector(objeto_0[[1]]$Homens)),
+                               paste(paste(as.vector(objeto_0[[1]]$'14-17')),
                                      collapse = ' ')),']',sep = '')
   
   data_serie2 <- paste('[',gsub(' ',',',
-                               paste(paste(as.vector(objeto_0[[1]]$Mulheres)),
+                               paste(paste(as.vector(objeto_0[[1]]$'18-24')),
                                      collapse = ' ')),']',sep = '')
+  
+  data_serie3 <- paste('[',gsub(' ',',',
+                                paste(paste(as.vector(objeto_0[[1]]$'25-39')),
+                                      collapse = ' ')),']',sep = '')
+  
+  data_serie4 <- paste('[',gsub(' ',',',
+                                paste(paste(as.vector(objeto_0[[1]]$'40-59')),
+                                      collapse = ' ')),']',sep = '')
+  
+  data_serie5 <- paste('[',gsub(' ',',',
+                                paste(paste(as.vector(objeto_0[[1]]$'60+')),
+                                      collapse = ' ')),']',sep = '')
   #Colocar o nome da coluna depois de "objeto_0[[1]]$"
   
   texto<-paste('{"title":{"text":"',titulo,
@@ -110,28 +125,40 @@ corsec_recossa_azul <- c('#a094e1','#dc6f6c','#62acd1','#8bc6d2',
                '"tooltip":{"trigger":"axis"},',
                '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":45,"show":true,',
                '"feature":{"dataZoom":{"yAxisIndex":"none"},',
-               '"legend":{},',
+               '"legend":{"show":true,"top":"bottom"},',
                '"dataView":{"readOnly":false},',
                '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
                '"data":',data_axis,'},',
                '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} mil"}},',
                '"series":[{"name":"',nomes[2],'","data":',data_serie,',',
-               '"type":"line","color":"',corsec_recossa_azul[1],'","showBackground":true,',
-               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',
-               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],'","borderWidth":2}},',
+               '"type":"line","color":"',corsec_recossa_azul[6],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[1],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[6],'","borderWidth":2}},',
                '{"name":"',nomes[3],'","data":',data_serie2,',',
-               '"type":"line","color":"',corsec_recossa_azul[2],'","showBackground":true,',
-               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},',
-               '"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[2],'","borderWidth":2}}',
+               '"type":"line","color":"',corsec_recossa_azul[7],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[2],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[7],'","borderWidth":2}}',
+               '{"name":"',nomes[4],'","data":',data_serie3,',',
+               '"type":"line","color":"',corsec_recossa_azul[8],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[3],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[8],'","borderWidth":2}}',
+               '{"name":"',nomes[5],'","data":',data_serie4,',',
+               '"type":"line","color":"',corsec_recossa_azul[1],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[4],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[1],'","borderWidth":2}}',
+               '{"name":"',nomes[6],'","data":',data_serie5,',',
+               '"type":"line","color":"',corsec_recossa_azul[3],'","showBackground":true,',
+               '"backgroundStyle":{"color":"rgba(180, 180, 180, 0.2)"},"symbol":"',simbolo_linhas[5],
+               '","symbolSize":10,"itemStyle":{"borderRadius":10,"borderColor":"',corsec_recossa_azul[3],'","borderWidth":2}}',
                ']}',sep='')
   
   #SAIDA_POVOAMENTO$CODIGO[i] <- texto   
   texto<-noquote(texto)
   
   
-  write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[3]),
+  write(exportJson0,file = paste('data/',gsub('.csv','',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[4]),
                                  '.json',sep =''))
-  write(texto,file = paste('data/',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[3],
+  write(texto,file = paste('data/',T_ST_P_No_TRABALHOEMPREGO$NOME_ARQUIVO_JS[4],
                            sep =''))
   
 #}
