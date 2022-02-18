@@ -47,6 +47,7 @@ library(readr)
 dados <- read_csv("data/recossa_desemprego_taxa.csv")
 names(dados)
 nomes <- names(dados)
+nomes[2] = 'taxa'
 ##  Perguntas e titulos 
 T_ST_P_No_TRABALHOEMPREGO <- read_csv("data/TEMA_SUBTEMA_P_No - TRABALHOEMPREGO.csv")
 
@@ -110,9 +111,8 @@ texto<-paste('{"title":{"text":"',titulo,
              '"tooltip":{"trigger":"axis"},',
              '"toolbox":{"left":"center","orient":"horizontal","itemSize":20,"top":45,"show":true,',
              '"feature":{"dataZoom":{"yAxisIndex":"none"},',
-             '"legend":{"show":true,"top":"bottom"},',
              '"dataView":{"readOnly":false},',
-             '"restore":{},"saveAsImage":{}}},"xAxis":{"type":"category",',
+             '"restore":{},"saveAsImage":{}}},"legend":{"show":true,"top":"bottom"},"xAxis":{"type":"category",',
              '"data":',data_axis,'},',
              '"yAxis":{"type":"value","axisLabel":{"formatter":"{value} %"}},',
              '"series":[{"name":"',nomes[2],'","data":',data_serie,',',
