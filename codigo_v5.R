@@ -47,7 +47,7 @@ library(readr)
 dados <- read_csv("data/recossa_desemprego_taxa.csv")
 names(dados)
 nomes <- names(dados)
-nomes[2] = 'taxa'
+nomes[2] = 'Taxa'
 ##  Perguntas e titulos 
 T_ST_P_No_TRABALHOEMPREGO <- read_csv("data/TEMA_SUBTEMA_P_No - TRABALHOEMPREGO.csv")
 
